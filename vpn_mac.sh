@@ -23,7 +23,7 @@ for ((i=0; i < ${#vpnlist[*]}; i++)); do
     done
 
     if [ $loops -le $maxloops ]; then
-        networksetup -setdnsservers "${vpn}" 192.168.100.1 10.0.1.1
+        networksetup -setdnsservers "${vpn}" 127.0.0.1
         echo "Success!"
         exit
     else
