@@ -1,0 +1,14 @@
+[Unit]
+Description=Redis Daemon
+Before=php-fpm.service
+After=syslog.target network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/redis-6379
+Type=forking
+Restart=always
+LimitNOFILE=65535
+ExecStart=/app/redis/bin/redis-server $CONF
+
+[Install]
+WantedBy=multi-user.target
