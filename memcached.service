@@ -1,0 +1,32 @@
+[Unit]
+Documentation=man:systemd-sysv-generator(8)
+Description=SYSV: NGINX is an HTTP(S) server, HTTP(S) reverse proxy and IMAP/POP3 proxy server
+After=network-online.target network.service
+
+[Service]
+Type=forking
+Restart=always
+PIDFile=/app/openresty/nginx/logs/nginx.pid
+LimitNOFILE=65535
+ExecStartPre=/app/openresty/nginx/sbin/nginx -t
+ExecStart=/app/openresty/nginx/sbin/nginx
+ExecStop=/bin/kill -s QUIT $MAINPID
+ExecReload=/bin/kill -s HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+[yi.tan@iZ94jcu2nq1Z ~]$ cat /usr/lib/systemd/system/memcached.service
+[Unit]
+Description=Memcached Daemon
+Before=php-fpm.service
+After=syslog.target network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/memcached-11211
+Type=forking
+Restart=always
+LimitNOFILE=65535
+ExecStart=/app/memcached/bin/memcached -d -p $PORT -m $CACHESIZE -c $MAXCONN -u $USER -l $BIND -P $PIDFILE $OPTIONS
+
+[Install]
+WantedBy=multi-user.target
