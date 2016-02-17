@@ -1,0 +1,7 @@
+PORT=11211
+BIND=127.0.0.1
+USER=nobody
+MAXCONN=1024
+CACHESIZE=10
+PIDFILE=/app/memcached/memcached-11211.pid
+OPTIONS="-f 1.1 -C"
