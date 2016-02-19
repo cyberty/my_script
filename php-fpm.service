@@ -5,6 +5,7 @@ Before=nginx.service
 
 [Service]
 Type=forking
+Restart=always
 PIDFile=/app/php/var/run/php-fpm.pid
 ExecStart=/app/php/sbin/php-fpm --fpm-config /app/php/etc/php-fpm.conf
 ExecStop=/bin/kill -QUIT $MAINPID
