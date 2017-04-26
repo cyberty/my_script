@@ -1,0 +1,12 @@
+[Unit]
+Description=Services for Checking Order Notice
+Requires=memcached.service redis.service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/web/air_quality_api/crond/order_notice.php >> /log/cronlog/order_notice_monitor.log
+
+[Install]
+WantedBy=multi-user.target
