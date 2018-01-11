@@ -1,0 +1,13 @@
+[Unit]
+Description=Auto SSH Tunnel
+After=network-online.target
+[Service]
+User=autossh
+Type=simple
+ExecStart=/bin/autossh -p 22 -M 6777 -NR '*:6766:localhost:22' usera@a.site 
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+[Install]
+WantedBy=multi-user.target
+WantedBy=graphical.target
