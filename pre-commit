@@ -3,7 +3,7 @@
 EXECUTABLE_NAME=php-cs-fixer
 EXECUTABLE_COMMAND=fix
 CONFIG_FILE=.php_cs
-CONFIG_FILE_PARAMETER='--config-file'
+CONFIG_FILE_PARAMETER='--config'
 ROOT=`pwd`
 
 # possible locations
@@ -37,7 +37,11 @@ fi
 
 git status --porcelain | grep -e '^[AM]\(.*\).php$' | cut -c 3- | while read line; do
   echo "check $line syntax before process..."
-  $EXECUTABLE $EXECUTABLE_COMMAND --quiet --dry-run $line;
+  if [[ -f $CONFIG ]]; then
+    $EXECUTABLE $EXECUTABLE_COMMAND $CONFIG_FILE_PARAMETER=$CONFIG --quiet --dry-run $line;
+  else
+    $EXECUTABLE $EXECUTABLE_COMMAND --quiet --dry-run $line;
+  fi
   RET=$?
 
   case $RET in
